@@ -25,17 +25,17 @@ export const sliderItems = [
 export const categories = [
   {
     id: 1,
-    title: 'SHIRTS',
-    img: '',
+    title: 'T-SHIRTS',
+    img: 'https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
   },
   {
     id: 2,
-    title: 'LOUNGEWEAR',
-    img: '',
+    title: 'JEANS',
+    img: 'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
   },
   {
     id: 3,
     title: 'Jackets',
-    img: '',
+    img: 'https://images.unsplash.com/photo-1608063615781-e2ef8c73d114?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
   },
 ];
