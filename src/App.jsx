@@ -1,8 +1,9 @@
+import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 function App() {
-  return <Login />
+  return <Cart />
 }
 
 export default App;
