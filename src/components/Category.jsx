@@ -28,6 +28,8 @@ const Info = styled.div`
 const Title = styled.h2`
   color: #fff;
   margin-bottom: 20px;
+  font-size: 2.5rem;
+  text-shadow: 0 0 5px #000;
 `;
 
 const Button = styled.button`
