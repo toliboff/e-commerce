@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Pinterest, Twitter, Phone, Email, MailOutline} from '@mui/icons-material';
+import { Facebook, Instagram, Pinterest, Twitter, Phone, MailOutline} from '@mui/icons-material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import styled from 'styled-components';
 import cards from '../cards.png';
