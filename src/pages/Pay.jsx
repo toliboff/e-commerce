@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 
- const KEY = "pk_test_51KNy4ILGkM0FHNqs9CsmvTpDBxdnvLts5331kBh6Ujszk4AKnWsdpUKgQLB4OmtITUYKFWTEl26YETioAZmIRu7C00sAphs6EB";
+ const STRIPE_PUBLISHABLE_KEY = "pk_test_51KNy4ILGkM0FHNqs9CsmvTpDBxdnvLts5331kBh6Ujszk4AKnWsdpUKgQLB4OmtITUYKFWTEl26YETioAZmIRu7C00sAphs6EB";
 
 
 const Pay = () => {
  const [stripeToken, setStripeToken] = useState(null);
-
-  const onToken = token => {
+ const onToken = token => {
     setStripeToken(token);
   }
 
@@ -25,11 +25,13 @@ const Pay = () => {
       }
     }
     stripeToken && makeRequest();
+    
   }, [stripeToken]);
 
   return <div>
     <h1>Pay</h1>
-    <StripeCheckout
+    {stripeToken ? <Navigate to="/success" />:(
+      <StripeCheckout
       name="E-Commerce"
       image="https://drive.google.com/file/d/1N3DGtx3Fy7vei3C_PDF5FS5NlTMld_I-/view?usp=sharing"
       billingAddress
@@ -37,7 +39,7 @@ const Pay = () => {
       description="Your total is $30"
       amount={3000}
       token={onToken}
-      stripeKey={KEY} 
+      stripeKey={STRIPE_PUBLISHABLE_KEY} 
     >
       <button
         style={{
@@ -50,6 +52,8 @@ const Pay = () => {
         }}
       >Pay Now</button>
     </StripeCheckout>
+    )}
+    
   </div>;
 };
 
