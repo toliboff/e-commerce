@@ -9,17 +9,18 @@ import Product from './pages/Product';
 import ProductList from './pages/ProductList';
 
 function App() {
+  const user = true;
   return <Router>
     <Routes>
 
       <Route path="/" element={<Home />} />
-      <Route path="/products/" element={<ProductList />} />
+      <Route path="/products/:id" element={<ProductList />} />
       <Route path="/product/" element={<Product />} />
       <Route path="/cart/" element={<Cart />} />
       <Route path="/checkout" element={<Pay />} />
       <Route path="/success" element={<Success />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={user ? <Home /> : <Register />} />
+      <Route path="/login" element={user ? <Home /> : <Login />} />
     </Routes>
   </Router>
 }
