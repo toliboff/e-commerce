@@ -2,14 +2,24 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Pay from "./pages/Pay";
 import Success from "./pages/Success";
+import Product from './pages/Product';
+import ProductList from './pages/ProductList';
 
 function App() {
   return <Router>
     <Routes>
-      <Route path="/" element={<Pay />} />
+
+      <Route path="/" element={<Home />} />
+      <Route path="/products/" element={<ProductList />} />
+      <Route path="/product/" element={<Product />} />
+      <Route path="/cart/" element={<Cart />} />
+      <Route path="/checkout" element={<Pay />} />
       <Route path="/success" element={<Success />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   </Router>
 }
