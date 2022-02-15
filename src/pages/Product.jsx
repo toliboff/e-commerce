@@ -111,6 +111,9 @@ const Product = () => {
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState('');
+  const [size, setSize] = useState('');
 
   useEffect(()=>{
     const getProduct = async () => {
@@ -124,6 +127,14 @@ const Product = () => {
     getProduct();
   }, [productId]);
 
+  const handleQuantity = (type) => {
+    if(type === 'dec') {
+      quantity > 1 && setQuantity(quantity-1)
+    } else {
+       setQuantity(quantity+1);
+    }
+   
+  }
   return (
     <Container>
       <Navbar />
@@ -140,23 +151,23 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {product.color?.map((clr) => <FilterColor color = {clr} />)}
+              {product.color?.map((clr) => <FilterColor color = {clr} key={clr} onClick={()=>setColor(clr)}/>)}
              
             </Filter>
 
             <Filter>
               <FilterTitle>Size</FilterTitle>
 
-              <FilterSize>
-                {product.size?.map((sz) => (<FilterSizeOption>{sz}</FilterSizeOption>))}
+              <FilterSize onChange={(event)=>setSize(event.target.value)}>
+                {product.size?.map((sz) => (<FilterSizeOption key={sz} >{sz}</FilterSizeOption>))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove style={{cursor: 'pointer'}} />
-              <Amount>1</Amount>
-              <Add style={{cursor: 'pointer'}} />
+              <Remove style={{cursor: 'pointer'}} onClick={()=>handleQuantity('dec')}/>
+              <Amount>{quantity}</Amount>
+              <Add style={{cursor: 'pointer'}} onClick={()=>handleQuantity('inc')}/>
             </AmountContainer>
             <Button>ADD TO CART</Button>
           </AddContainer>
