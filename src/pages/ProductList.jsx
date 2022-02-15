@@ -42,12 +42,14 @@ const Option = styled.option`
 const ProductList = () => {
   const location = useLocation();
   const cat = location.pathname.split("/")[2];
+  console.log("Cat is: ", cat);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters({...filters, [name]: value});
+ 
   }
 
   return (
