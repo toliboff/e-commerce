@@ -1,10 +1,18 @@
+import {useState} from 'react';
 import { Add, Remove } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
+import StripeCheckout from 'react-stripe-checkout';
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { mobile } from '../responsive';
+import { useEffect } from 'react';
+import { userRequest } from '../requestMethods';
+import { useNavigate } from 'react-router-dom';
+
+const STRIPE_PUBLISHABLE_KEY = process.env.REACT_APP_STRIPE_KEY;
+
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -155,6 +163,27 @@ const SummaryButton = styled.div`
 `;
 
 const Cart = () => {
+  const [stripeToken, setStripeToken] = useState(null);
+  const navigate=useNavigate();
+  const onToken = (token) =>{
+    setStripeToken(token);
+  }
+console.log(stripeToken);
+ useEffect(()=>{
+   const makeRequest = async () => {
+     try {
+      const res = await userRequest.post('/checkout/payment', {
+        tokenId: stripeToken.id,
+        amount: cart.total*100,
+      });
+      navigate('/success')
+     } catch (error) {
+       console.log(error)
+     }
+   }
+   stripeToken && makeRequest();
+ }, [stripeToken])
+
   const cart = useSelector(state=>state.cartReducer)
   return (
     <Container>
@@ -221,8 +250,18 @@ const Cart = () => {
               <SummaryItemText >Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-
+            <StripeCheckout
+              name="Amazing"
+              image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6jsiy8u7dHV9q38HmtGdXQvhGkRrj6IcR9g&usqp=CAU"
+              billingAddress
+              shippingAddress
+              description={`Total amount is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={STRIPE_PUBLISHABLE_KEY} 
+            >
             <SummaryButton>CHECKOUT NOW</SummaryButton>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>
