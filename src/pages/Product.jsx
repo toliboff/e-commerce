@@ -1,6 +1,7 @@
 import { Add, Remove } from '@mui/icons-material';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux'; 
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
@@ -8,6 +9,7 @@ import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
 import { mobile } from '../responsive';
 import { publicRequest } from '../requestMethods';
+import { addProduct } from '../redux/cartRedux';
 
 const Container = styled.div`
 
@@ -115,6 +117,7 @@ const Product = () => {
   const [color, setColor] = useState('');
   const [size, setSize] = useState('');
 
+  const dispatch = useDispatch();
   useEffect(()=>{
     const getProduct = async () => {
       try {
@@ -133,8 +136,12 @@ const Product = () => {
     } else {
        setQuantity(quantity+1);
     }
-   
   }
+
+  const handleClick = () => {
+    dispatch(addProduct({...product, quantity, color, size}));
+  }
+
   return (
     <Container>
       <Navbar />
@@ -169,7 +176,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add style={{cursor: 'pointer'}} onClick={()=>handleQuantity('inc')}/>
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
