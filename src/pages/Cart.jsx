@@ -1,4 +1,5 @@
 import { Add, Remove } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
@@ -154,6 +155,7 @@ const SummaryButton = styled.div`
 `;
 
 const Cart = () => {
+  const cart = useSelector(state=>state.cartReducer)
   return (
     <Container>
       <Navbar />
@@ -172,45 +174,29 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
+            {cart.products.map(product=> (
+              <Product>
               <ProductDetail>
-                <Image src='https://images.unsplash.com/photo-1622920883841-5bf72e392d8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=694&q=80'/>
+                <Image src={product.image}/>
                 <Details>
-                  <ProductName><b>Product:</b>LEWIS JEANS</ProductName>
-                  <ProductId><b>ID:</b>654321</ProductId>
-                  <ProductColor color='black' />
-                  <ProductSize><b>Size:</b>XL</ProductSize>
+                  <ProductName><b>Product:</b>{product.title}</ProductName>
+                  <ProductId><b>ID:</b>{product._id}</ProductId>
+                  <ProductColor color= {product.color} />
+                  <ProductSize><b>Size:</b>{product.size}</ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
                   <Add />
-                  <ProductAmount>1</ProductAmount>
+                  <ProductAmount>{product.quantity}</ProductAmount>
                   <Remove />
                 </ProductAmountContainer>
-                <ProductPrice>$30</ProductPrice>
+                <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
               </PriceDetail>
-            </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src='https://images.unsplash.com/photo-1601903076343-ee0c1be34911?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1029&q=80'/>
-                <Details>
-                  <ProductName><b>Product:</b>LEWIS JEANS</ProductName>
-                  <ProductId><b>ID:</b>654321</ProductId>
-                  <ProductColor color='black' />
-                  <ProductSize><b>Size:</b>XL</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>1</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$30</ProductPrice>
-              </PriceDetail>
-            </Product>
+              </Product>
+            ))}
+          
+            
           </Info>
 
           <Summary>
@@ -218,22 +204,22 @@ const Cart = () => {
 
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ 60</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
 
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 4.37</SummaryItemPrice>
+              <SummaryItemPrice>$ 0</SummaryItemPrice>
             </SummaryItem>
 
             <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -2.37</SummaryItemPrice>
+              <SummaryItemPrice>$ 0</SummaryItemPrice>
             </SummaryItem>
 
             <SummaryItem type='total'>
               <SummaryItemText >Total</SummaryItemText>
-              <SummaryItemPrice>$ 62.00</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
 
             <SummaryButton>CHECKOUT NOW</SummaryButton>
