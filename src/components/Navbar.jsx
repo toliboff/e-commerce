@@ -1,10 +1,11 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import styled from 'styled-components'
 import { Search, ShoppingCart } from '@mui/icons-material';
 import  { Badge } from '@mui/material';
 import { mobile } from '../responsive'
 import { useSelector } from 'react-redux';
-import {Link} from 'react-router-dom';
+
 const Container = styled.div`
   height: 60px;
   ${mobile({height: '50px'})}
@@ -47,6 +48,10 @@ const Center = styled.div`
   flex:1;
   ${mobile({flex: '0'})}
 `
+const HomeLink = styled.a`
+  text-decoration: none;
+  color: gray;
+`
 
 const Logo = styled.h1`
   font-weight: 900;
@@ -80,7 +85,10 @@ const Navbar = () => {
         </SearchContainer>
       </Left>
       <Center>
-        <Logo>AMAZING</Logo>
+        <HomeLink href='/'>
+           <Logo>AMAZING</Logo>
+        </HomeLink>
+       
       </Center>
       <Right>
         <MenuItem>REGISTER</MenuItem>
