@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import { Search, ShoppingCart } from '@mui/icons-material';
 import  { Badge } from '@mui/material';
 import { mobile } from '../responsive'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '../redux/userRedux';
 
 const Container = styled.div`
   height: 60px;
@@ -72,8 +73,17 @@ const MenuItem = styled.div`
   margin-left: 25px;
   ${mobile({fontSize: '12px', marginLeft:'10px'})}
 `
+
+
+
 const Navbar = () => {
+  const dispatch = useDispatch();
   const cart = useSelector(state=>state.cartReducer);
+  const user = useSelector(state=>state.userReducer);
+  
+  const handleLogout = () => {
+    dispatch(logOut());
+  }
   return (
     <Container>
       <Wrapper>
@@ -91,8 +101,10 @@ const Navbar = () => {
        
       </Center>
       <Right>
-        <MenuItem>REGISTER</MenuItem>
-        <MenuItem>SIGN IN</MenuItem>
+        {user 
+        ? <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
+        : <><MenuItem>REGISTER</MenuItem>
+        <MenuItem>SIGN IN</MenuItem></>}
         <Link to="/cart">
           <MenuItem>
             <Badge badgeContent={cart.quantity} color="primary">

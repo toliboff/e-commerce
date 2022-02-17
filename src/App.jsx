@@ -1,4 +1,5 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
@@ -9,7 +10,7 @@ import Product from './pages/Product';
 import ProductList from './pages/ProductList';
 
 function App() {
-  const user = false;
+  const user = useSelector((state)=>state.userReducer.currentUser);
   return <Router>
     <Routes>
 
