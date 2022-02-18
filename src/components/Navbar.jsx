@@ -9,7 +9,9 @@ import { logOut } from '../redux/userRedux';
 
 const Container = styled.div`
   height: 60px;
+  border-bottom: 1px solid #ccc;
   ${mobile({height: '50px'})}
+
 `
 
 const Wrapper = styled.div`
