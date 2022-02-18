@@ -52,6 +52,10 @@ const ProductList = () => {
  
   }
 
+  window.scrollTo({
+    top: 0,
+    behaviour: 'smooth',
+  })
   return (
     <Container>
       <Navbar />

@@ -81,7 +81,7 @@ const MenuItem = styled.div`
 const Navbar = () => {
   const dispatch = useDispatch();
   const cart = useSelector(state=>state.cartReducer);
-  const user = useSelector(state=>state.userReducer);
+  const user = useSelector(state=>state.userReducer.currentUser);
   
   const handleLogout = () => {
     dispatch(logOut());
@@ -97,16 +97,19 @@ const Navbar = () => {
         </SearchContainer>
       </Left>
       <Center>
-        <HomeLink href='/'>
+        <Link to='/'>
            <Logo>AMAZING</Logo>
-        </HomeLink>
+        </Link>
        
       </Center>
       <Right>
-        {user 
+        {user !== null 
         ? <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
         : <><MenuItem>REGISTER</MenuItem>
-        <MenuItem>SIGN IN</MenuItem></>}
+        <Link to='/login'>
+          <MenuItem>SIGN IN</MenuItem>
+        </Link>
+        </>}
         <Link to="/cart">
           <MenuItem>
             <Badge badgeContent={cart.quantity} color="primary">

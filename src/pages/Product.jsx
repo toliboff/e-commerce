@@ -1,7 +1,7 @@
 import { Add, Remove } from '@mui/icons-material';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'; 
+import { useDispatch, useSelector } from 'react-redux'; 
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
@@ -116,7 +116,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState('');
   const [size, setSize] = useState('');
-
+  const user = useSelector((state)=> state.userReducer.currentUser)
   const dispatch = useDispatch();
   useEffect(()=>{
     const getProduct = async () => {
@@ -139,9 +139,15 @@ const Product = () => {
   }
 
   const handleClick = () => {
-    dispatch(addProduct({...product, quantity, color, size}));
+    user 
+    ? dispatch(addProduct({...product, quantity, color, size}))
+    : alert('Please sign in')
   }
 
+  window.scrollTo({
+    top: 0,
+    behaviour: 'smooth',
+  })
   return (
     <Container>
       <Navbar />
